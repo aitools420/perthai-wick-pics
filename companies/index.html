@@ -29,11 +29,18 @@
   header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
     padding:.85rem clamp(1rem,4vw,2.4rem);backdrop-filter:blur(12px);
     background:linear-gradient(180deg,rgba(4,6,10,.85),rgba(4,6,10,.4));border-bottom:1px solid var(--line);}
-  .logo{font-weight:800;letter-spacing:.06em;font-size:.92rem;}
+  .logo{font-weight:800;letter-spacing:.06em;font-size:.86rem;line-height:1.12;}
   .logo .a{color:var(--accent);}
   header nav{display:flex;gap:.4rem;align-items:center;}
   header nav a{color:var(--muted);text-decoration:none;font-size:.78rem;letter-spacing:.08em;
-    text-transform:uppercase;padding:.5rem .8rem;border-radius:8px;transition:.2s;}
+    text-transform:uppercase;padding:.5rem .8rem;border-radius:8px;transition:.2s;white-space:nowrap;}
+  header nav{flex-shrink:0;}
+  @media(max-width:520px){
+    header{padding:.7rem 1rem;}
+    .logo{font-size:.72rem;}
+    header nav{gap:.3rem;}
+    header nav a{padding:.42rem .58rem;font-size:.64rem;letter-spacing:.03em;}
+  }
   header nav a:hover{color:var(--ink);background:rgba(57,201,255,.1);}
   header nav a.cta{color:#04060a;background:var(--accent);font-weight:700;}
   /* ---- hero ---- */
@@ -43,10 +50,11 @@
   .hero h1 .g{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
   .hero p{color:var(--muted);max-width:62ch;margin-top:1.1rem;font-size:clamp(.98rem,2.4vw,1.15rem);font-weight:300;}
   /* ---- stat chips ---- */
-  .stats{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem;}
-  .chip{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:.7rem 1rem;min-width:120px;}
+  .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin-top:1.8rem;}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .chip{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:.7rem .85rem;min-width:0;}
   .chip b{display:block;font-size:1.5rem;font-weight:800;color:var(--accent);line-height:1;}
-  .chip span{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+  .chip span{font-size:.7rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;white-space:normal;line-height:1.25;display:block;margin-top:.25rem;}
   /* ---- segments legend ---- */
   .legend{max-width:1180px;margin:1.6rem auto 0;padding:0 clamp(1rem,5vw,3rem);}
   .legend .box{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:1.2rem 1.4rem;
@@ -115,7 +123,7 @@
   <div class="bg"></div><div class="grid-bg"></div><div class="scan"></div>
 
   <header>
-    <div class="logo">UNLIMITED <span class="a">AI</span> LIMITED</div>
+    <div class="logo">UNLIMITED<br><span class="a">AI</span> LIMITED</div>
     <nav>
       <a href="/">◂ The Room</a>
       <a href="#cta" class="cta">Work with me</a>
@@ -123,29 +131,12 @@
   </header>
 
   <section class="hero">
-    <div class="kicker">Perth · Western Australia · AI Consultancy Landscape</div>
+    <div class="kicker">Perth &middot; Western Australia<br>AI Consultancy Landscape</div>
     <h1>The companies building<br><span class="g">Perth's AI economy</span> — and where I fit.</h1>
-    <p>A working map of the AI consultancies and integration shops operating in Perth right now: what they do, how big they are, who's hiring — and a candid score of how much value I'd add to each. Built as much to brief them as to track them.</p>
+    <p>A working map of the AI consultancies and integration shops operating in Perth right now: what they do, how big they are, who's hiring — and a candid score of how much value I'd add to each.</p>
     <div class="stats" id="stats"></div>
   </section>
 
-  <section class="legend">
-    <div class="box">
-      <div>
-        <h3>How to read the fit score</h3>
-        <p>0–100, weighing each firm's focus against my core strengths: prompt engineering, agent &amp; workflow design, and turning AI into business results — fast, without needing a CS pedigree.</p>
-      </div>
-      <div>
-        <h3>The competitive line</h3>
-        <p>Each card names the cost of passing. The same playbook that compounds for one firm compounds for its closest Perth rival instead.</p>
-      </div>
-      <div>
-        <h3>Contact intelligence</h3>
-        <p>Decision-maker contacts are being enriched from legally-public sources (company sites, LinkedIn, ASIC/ABN registry). Shown as <i>enrichment in progress</i> until verified.</p>
-        <div class="note">No grey-area probing. Verified, named contacts only.</div>
-      </div>
-    </div>
-  </section>
 
   <section class="sec">
     <h2>The field</h2>
@@ -155,8 +146,8 @@
 
   <section class="final" id="cta">
     <div class="box">
-      <h2>One hire. Two outcomes.</h2>
-      <p>Either I'm building leverage inside your firm — or I'm building it for the firm one row down this page. Let's make it the former.</p>
+      <h2>Let's build something.</h2>
+      <p>If you are putting AI to work in Perth, I would love to help make it land. Practical, fast, and built around real business outcomes.</p>
       <a class="btn" href="mailto:hello@perthai.wick.pics?subject=AI%20implementation%20—%20let's%20talk">Contact me</a>
     </div>
   </section>
@@ -176,61 +167,94 @@
     { name:"Lakestone.ai", rank:"Target #1", top:true, seg:"Workflow Automation", size:"2–10", founded:2024, loc:"Perth / WA", hiring:true,
       blurb:"Workflow automation and custom AI agents for mining, finance and trades. Fast delivery, WA-focused. Actively hiring an AI Automation Engineer + Full-Stack Dev.",
       fit:94, why:"Their entire offer is workflow + agent design — my core. A small, fast team that hires for exactly the implementation work I do best, and they're hiring right now.",
-      cost:"Pass, and the same automation muscle shows up at Source Digital or Valenor — your nearest WA workflow rivals.",
       site:null, linkedin:"Lakestone.ai" },
 
     { name:"Third Vision", rank:"Target #2", top:true, seg:"Strategy / Fractional AI", size:"2–10", founded:2017, loc:"Perth + Sydney", hiring:false,
       blurb:"Fractional AI leadership plus sales and back-office automation. Established, multi-city, advisory-led with global reach.",
       fit:88, why:"They sell outcomes and automation to non-technical clients — exactly my translation layer. A fractional model rewards a versatile implementer who ships across many clients.",
-      cost:"Pass, and that client-facing automation capability strengthens AI Access instead.",
       site:null, linkedin:"Third Vision" },
 
     { name:"Source Digital", rank:"Target #3", top:true, seg:"Workflow Automation", size:"1–5", founded:2022, loc:"Perth", hiring:false,
       blurb:"Boutique end-to-end AI — agents, chatbots, automation and strategy, delivered Australia-wide.",
       fit:86, why:"A 1–5 person boutique lives or dies on a generalist who can scope, prompt, build and ship. That's the exact shape of what I do.",
-      cost:"Pass, and Lakestone out-delivers you on the next three automation briefs.",
       site:null, linkedin:"Source Digital" },
 
     { name:"Valenor", rank:null, seg:"Workflow Automation", size:"2–10", founded:2025, loc:"Perth", hiring:false,
       blurb:"AI automation embedded into clients' existing systems. New (2025), founder-led, hungry.",
       fit:82, why:"A brand-new founder-led shop needs hands that turn ideas into shipped automations cheaply. Early hires shape the playbook — high leverage for me, high upside for them.",
-      cost:"Pass, and Lakestone's head start widens while you're still building the bench.",
       site:null, linkedin:"Valenor AI" },
 
     { name:"September AI Labs", rank:null, seg:"Build / Prototype→Deploy", size:"2–10", founded:null, loc:"Perth", hiring:false,
       blurb:"Development consultancy taking prototypes through to deployment, with a design-thinking and data-science bent.",
       fit:80, why:"Prototype→deploy is where prompt/agent design meets real delivery. I accelerate the messy middle — getting demos to production.",
-      cost:"Pass, and AI Advancements wins the builds you were both chasing.",
       site:null, linkedin:"September AI Labs" },
 
     { name:"AI Access", rank:null, seg:"Adoption / Governance", size:"10–50", founded:null, loc:"Perth", hiring:false,
       blurb:"AI strategy, governance, training and adoption for organisations getting started. Newer, enablement-led.",
       fit:78, why:"Adoption and training is a power-user's home turf — I make AI land with non-technical teams. A larger firm gives me reach across many clients.",
-      cost:"Pass, and Third Vision becomes the default name for AI enablement in Perth.",
       site:null, linkedin:"AI Access" },
 
     { name:"AI Advancements", rank:null, seg:"Build / Custom AI", size:"2–10", founded:2023, loc:"Perth", hiring:false,
       blurb:"Custom AI, LLMs, computer vision and training for Australian clients. Technically deep.",
       fit:72, why:"More CS-heavy than my sweet spot, but their LLM and training work maps cleanly to what I'm strongest at — I'd own the applied-LLM and client-enablement side.",
-      cost:"Pass, and September AI Labs picks up the applied-LLM work you leave on the table.",
       site:null, linkedin:"AI Advancements" },
 
     { name:"VROC", rank:null, seg:"Industrial / Predictive", size:"11–50", founded:null, loc:"Perth", hiring:false,
       blurb:"Industrial asset reliability and predictive maintenance AI for mining and resources.",
       fit:58, why:"A specialised, data-science-heavy domain — narrower overlap. My edge here is the human layer: turning model output into workflows and decisions operators actually use.",
-      cost:"Niche enough that the capability simply goes unbuilt — until a rival productises it.",
       site:null, linkedin:"VROC" },
+  
+    { name:"Lightning Ventures", rank:null, seg:"Agents / Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
+      blurb:"Builds intelligent systems for WA business — AI agents, MCP servers and automation across mining, energy and professional services, aimed at cutting overhead and speeding decisions.",
+      fit:89, why:"MCP servers and production agents are exactly the modern, applied work I do best, and their mining/energy clients reward someone who ships real automation over slideware.",
+      site:"https://www.lightningventures.com.au/ai-agency/perth/", linkedin:"Lightning Ventures Perth" },
+
+    { name:"AI Agency Perth", rank:null, seg:"SME Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
+      blurb:"Practical AI for Perth SMEs — automation strategies, custom AI agents and clear AI-adoption guidance for the local market.",
+      fit:85, why:"SME-facing automation and agent work is my sweet spot: translate a business problem into a shipped workflow without needing a CS team behind me.",
+      site:"https://aiagencyperth.com.au/", linkedin:"AI Agency Perth" },
+
+    { name:"The Start", rank:null, seg:"Build / Generative", size:null, founded:null, loc:"Perth (national)", hiring:false,
+      blurb:"Perth studio combining design, engineering, data and product to build LLM and generative tools — including custom generative engines trained on a client brand.",
+      fit:80, why:"Generative builds live or die on prompt and pipeline craft — the applied-LLM layer I am strongest at, sitting between design and engineering.",
+      site:"https://thestart.com.au/service/ai-consultancy-perth/", linkedin:"The Start Perth" },
+
+    { name:"Dapth", rank:null, seg:"Build / Workflows", size:null, founded:null, loc:"Perth / WA", hiring:false,
+      blurb:"AI products and service development — smart workflows, data-driven insight and custom machine-learning models for client problems.",
+      fit:77, why:"Smart-workflow design and applied ML delivery is squarely what I do; I shorten the path from idea to a workflow that actually runs in production.",
+      site:"https://dapth.com/services/ai-products-and-service-development", linkedin:"Dapth" },
+
+    { name:"Hello People", rank:null, seg:"SMB AI + Software", size:"50+", founded:2010, loc:"Perth / AU", hiring:false,
+      blurb:"AI consulting plus custom software for small and medium business — 100+ projects delivered with a 50-strong team.",
+      fit:75, why:"A larger delivery shop needs someone who makes AI land with non-technical clients across many projects — adoption and prompt craft are my edge.",
+      site:null, linkedin:"Hello People Perth" },
+
+    { name:"Dawnview AI", rank:null, seg:"Chatbots / Automation", size:null, founded:null, loc:"Perth / AU", hiring:false,
+      blurb:"Helps Australian businesses adopt AI — customer-order chatbots, AI-built websites and custom software to streamline ops and lift CX.",
+      fit:74, why:"Conversational AI and customer-facing automation reward tight prompt design and fast iteration — exactly how I work.",
+      site:null, linkedin:"Dawnview AI" },
+
+    { name:"BIZ-LYNX Technology", rank:null, seg:"Adoption / Strategy", size:null, founded:null, loc:"Perth / WA", hiring:false,
+      blurb:"Perth AI consultants building clear AI-adoption strategies — keeping technology aligned to business goals, secure and scalable.",
+      fit:73, why:"Strategy-to-adoption is a power-user's home turf: I bridge the gap between what AI can do and what a team will actually use.",
+      site:"https://www.biz-lynx.com.au/ai-services/", linkedin:"BIZ-LYNX Technology" },
+
+    { name:"Immerse Enterprise", rank:null, seg:"Immersive + AI", size:null, founded:null, loc:"Perth / WA", hiring:false,
+      blurb:"Perth 3D and immersive-tech studio folding AI and machine learning into spatial and immersive experiences.",
+      fit:64, why:"Adjacent to my core, but immersive products still need the AI layer wired in well — where I add value is making the intelligence usable, not the 3D.",
+      site:"https://immerseenterprise.com/artificial-intelligence/perth/", linkedin:"Immerse Enterprise" },
+
   ];
 
   // Lower-priority / watchlist (lighter touch)
-  const WATCH = ["Prometheus AI","Hello People","Dawnview AI","Arinco"];
+  const WATCH = ["Prometheus AI","Arinco","Convergence AI","Avenue Group (national)","Mindfields (advisory)","Tezeract (global)"];
 
   const $=s=>document.querySelector(s);
   // stats
   const hiring=COMPANIES.filter(c=>c.hiring).length;
   const segs=new Set(COMPANIES.map(c=>c.seg)).size;
   $("#stats").innerHTML=[
-    [COMPANIES.length+WATCH.length,"Companies tracked"],
+    [COMPANIES.length+WATCH.length,"Companies"],
     [hiring,"Hiring now"],
     [segs,"Distinct segments"],
     ["2024","Newest serious entrant"],
@@ -239,12 +263,12 @@
   const gsearch=q=>`https://www.google.com/search?q=${encodeURIComponent(q+" Perth AI")}`;
   const li=q=>`https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(q)}`;
 
-  $("#cards").innerHTML=COMPANIES.map(c=>`
+  $("#cards").innerHTML=COMPANIES.slice().sort((a,b)=>b.fit-a.fit).map(c=>`
     <article class="card reveal">
       <div class="top">
         <div>
           <div class="name">${c.name}</div>
-          <div class="meta">${c.loc} · ${c.size} people${c.founded?` · est. ${c.founded}`:""}</div>
+          <div class="meta">${c.loc}${c.size?` · ${c.size} people`:""}${c.founded?` · est. ${c.founded}`:""}</div>
         </div>
         ${c.rank?`<span class="rank ${c.top?'t':''}">${c.rank}</span>`:""}
       </div>
@@ -255,14 +279,12 @@
         <div class="bar"><i data-w="${c.fit}"></i></div>
       </div>
       <div class="why"><span class="h">Why I fit:</span> ${c.why}</div>
-      <div class="cost"><span class="h">Cost of passing:</span> ${c.cost}</div>
       <div class="contact">
-        <div class="h">Contact intelligence</div>
+        <div class="h">Links</div>
         <div class="links">
           <a href="${c.site||gsearch(c.name)}" target="_blank" rel="noopener">${c.site?"Website":"Find site ↗"}</a>
           <a href="${li(c.linkedin||c.name)}" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
-        <div class="pending">Decision-maker contacts — enrichment in progress</div>
       </div>
     </article>`).join("");
 
