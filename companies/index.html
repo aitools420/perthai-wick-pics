@@ -164,82 +164,82 @@
      the enrichment pass. Edit here; the page re-renders. (Replaceable.)
      ===================================================================== */
   const COMPANIES = [
-    { name:"Lakestone.ai", rank:"Target #1", top:true, seg:"Workflow Automation", size:"2–10", founded:2024, loc:"Perth / WA", hiring:true,
+    { name:"Lakestone.ai", top:true, seg:"Workflow Automation", size:"2–10", founded:2024, loc:"Perth / WA", hiring:true,
       blurb:"Workflow automation and custom AI agents for mining, finance and trades. Fast delivery, WA-focused. Actively hiring an AI Automation Engineer + Full-Stack Dev.",
       fit:94, why:"Their entire offer is workflow + agent design — my core. A small, fast team that hires for exactly the implementation work I do best, and they're hiring right now.",
       site:null, linkedin:"Lakestone.ai" },
 
-    { name:"Third Vision", rank:"Target #2", top:true, seg:"Strategy / Fractional AI", size:"2–10", founded:2017, loc:"Perth + Sydney", hiring:false,
+    { name:"Third Vision", top:true, seg:"Strategy / Fractional AI", size:"2–10", founded:2017, loc:"Perth + Sydney", hiring:false,
       blurb:"Fractional AI leadership plus sales and back-office automation. Established, multi-city, advisory-led with global reach.",
       fit:88, why:"They sell outcomes and automation to non-technical clients — exactly my translation layer. A fractional model rewards a versatile implementer who ships across many clients.",
       site:null, linkedin:"Third Vision" },
 
-    { name:"Source Digital", rank:"Target #3", top:true, seg:"Workflow Automation", size:"1–5", founded:2022, loc:"Perth", hiring:false,
+    { name:"Source Digital", top:true, seg:"Workflow Automation", size:"1–5", founded:2022, loc:"Perth", hiring:false,
       blurb:"Boutique end-to-end AI — agents, chatbots, automation and strategy, delivered Australia-wide.",
       fit:86, why:"A 1–5 person boutique lives or dies on a generalist who can scope, prompt, build and ship. That's the exact shape of what I do.",
       site:null, linkedin:"Source Digital" },
 
-    { name:"Valenor", rank:null, seg:"Workflow Automation", size:"2–10", founded:2025, loc:"Perth", hiring:false,
+    { name:"Valenor", seg:"Workflow Automation", size:"2–10", founded:2025, loc:"Perth", hiring:false,
       blurb:"AI automation embedded into clients' existing systems. New (2025), founder-led, hungry.",
       fit:82, why:"A brand-new founder-led shop needs hands that turn ideas into shipped automations cheaply. Early hires shape the playbook — high leverage for me, high upside for them.",
       site:null, linkedin:"Valenor AI" },
 
-    { name:"September AI Labs", rank:null, seg:"Build / Prototype→Deploy", size:"2–10", founded:null, loc:"Perth", hiring:false,
+    { name:"September AI Labs", seg:"Build / Prototype→Deploy", size:"2–10", founded:null, loc:"Perth", hiring:false,
       blurb:"Development consultancy taking prototypes through to deployment, with a design-thinking and data-science bent.",
       fit:80, why:"Prototype→deploy is where prompt/agent design meets real delivery. I accelerate the messy middle — getting demos to production.",
       site:null, linkedin:"September AI Labs" },
 
-    { name:"AI Access", rank:null, seg:"Adoption / Governance", size:"10–50", founded:null, loc:"Perth", hiring:false,
+    { name:"AI Access", seg:"Adoption / Governance", size:"10–50", founded:null, loc:"Perth", hiring:false,
       blurb:"AI strategy, governance, training and adoption for organisations getting started. Newer, enablement-led.",
       fit:78, why:"Adoption and training is a power-user's home turf — I make AI land with non-technical teams. A larger firm gives me reach across many clients.",
       site:null, linkedin:"AI Access" },
 
-    { name:"AI Advancements", rank:null, seg:"Build / Custom AI", size:"2–10", founded:2023, loc:"Perth", hiring:false,
+    { name:"AI Advancements", seg:"Build / Custom AI", size:"2–10", founded:2023, loc:"Perth", hiring:false,
       blurb:"Custom AI, LLMs, computer vision and training for Australian clients. Technically deep.",
       fit:72, why:"More CS-heavy than my sweet spot, but their LLM and training work maps cleanly to what I'm strongest at — I'd own the applied-LLM and client-enablement side.",
       site:null, linkedin:"AI Advancements" },
 
-    { name:"VROC", rank:null, seg:"Industrial / Predictive", size:"11–50", founded:null, loc:"Perth", hiring:false,
+    { name:"VROC", seg:"Industrial / Predictive", size:"11–50", founded:null, loc:"Perth", hiring:false,
       blurb:"Industrial asset reliability and predictive maintenance AI for mining and resources.",
       fit:58, why:"A specialised, data-science-heavy domain — narrower overlap. My edge here is the human layer: turning model output into workflows and decisions operators actually use.",
       site:null, linkedin:"VROC" },
   
-    { name:"Lightning Ventures", rank:null, seg:"Agents / Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
+    { name:"Lightning Ventures", seg:"Agents / Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
       blurb:"Builds intelligent systems for WA business — AI agents, MCP servers and automation across mining, energy and professional services, aimed at cutting overhead and speeding decisions.",
       fit:89, why:"MCP servers and production agents are exactly the modern, applied work I do best, and their mining/energy clients reward someone who ships real automation over slideware.",
       site:"https://www.lightningventures.com.au/ai-agency/perth/", linkedin:"Lightning Ventures Perth" },
 
-    { name:"AI Agency Perth", rank:null, seg:"SME Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
+    { name:"AI Agency Perth", seg:"SME Automation", size:null, founded:null, loc:"Perth / WA", hiring:false,
       blurb:"Practical AI for Perth SMEs — automation strategies, custom AI agents and clear AI-adoption guidance for the local market.",
       fit:85, why:"SME-facing automation and agent work is my sweet spot: translate a business problem into a shipped workflow without needing a CS team behind me.",
       site:"https://aiagencyperth.com.au/", linkedin:"AI Agency Perth" },
 
-    { name:"The Start", rank:null, seg:"Build / Generative", size:null, founded:null, loc:"Perth (national)", hiring:false,
+    { name:"The Start", seg:"Build / Generative", size:null, founded:null, loc:"Perth (national)", hiring:false,
       blurb:"Perth studio combining design, engineering, data and product to build LLM and generative tools — including custom generative engines trained on a client brand.",
       fit:80, why:"Generative builds live or die on prompt and pipeline craft — the applied-LLM layer I am strongest at, sitting between design and engineering.",
       site:"https://thestart.com.au/service/ai-consultancy-perth/", linkedin:"The Start Perth" },
 
-    { name:"Dapth", rank:null, seg:"Build / Workflows", size:null, founded:null, loc:"Perth / WA", hiring:false,
+    { name:"Dapth", seg:"Build / Workflows", size:null, founded:null, loc:"Perth / WA", hiring:false,
       blurb:"AI products and service development — smart workflows, data-driven insight and custom machine-learning models for client problems.",
       fit:77, why:"Smart-workflow design and applied ML delivery is squarely what I do; I shorten the path from idea to a workflow that actually runs in production.",
       site:"https://dapth.com/services/ai-products-and-service-development", linkedin:"Dapth" },
 
-    { name:"Hello People", rank:null, seg:"SMB AI + Software", size:"50+", founded:2010, loc:"Perth / AU", hiring:false,
+    { name:"Hello People", seg:"SMB AI + Software", size:"50+", founded:2010, loc:"Perth / AU", hiring:false,
       blurb:"AI consulting plus custom software for small and medium business — 100+ projects delivered with a 50-strong team.",
       fit:75, why:"A larger delivery shop needs someone who makes AI land with non-technical clients across many projects — adoption and prompt craft are my edge.",
       site:null, linkedin:"Hello People Perth" },
 
-    { name:"Dawnview AI", rank:null, seg:"Chatbots / Automation", size:null, founded:null, loc:"Perth / AU", hiring:false,
+    { name:"Dawnview AI", seg:"Chatbots / Automation", size:null, founded:null, loc:"Perth / AU", hiring:false,
       blurb:"Helps Australian businesses adopt AI — customer-order chatbots, AI-built websites and custom software to streamline ops and lift CX.",
       fit:74, why:"Conversational AI and customer-facing automation reward tight prompt design and fast iteration — exactly how I work.",
       site:null, linkedin:"Dawnview AI" },
 
-    { name:"BIZ-LYNX Technology", rank:null, seg:"Adoption / Strategy", size:null, founded:null, loc:"Perth / WA", hiring:false,
+    { name:"BIZ-LYNX Technology", seg:"Adoption / Strategy", size:null, founded:null, loc:"Perth / WA", hiring:false,
       blurb:"Perth AI consultants building clear AI-adoption strategies — keeping technology aligned to business goals, secure and scalable.",
       fit:73, why:"Strategy-to-adoption is a power-user's home turf: I bridge the gap between what AI can do and what a team will actually use.",
       site:"https://www.biz-lynx.com.au/ai-services/", linkedin:"BIZ-LYNX Technology" },
 
-    { name:"Immerse Enterprise", rank:null, seg:"Immersive + AI", size:null, founded:null, loc:"Perth / WA", hiring:false,
+    { name:"Immerse Enterprise", seg:"Immersive + AI", size:null, founded:null, loc:"Perth / WA", hiring:false,
       blurb:"Perth 3D and immersive-tech studio folding AI and machine learning into spatial and immersive experiences.",
       fit:64, why:"Adjacent to my core, but immersive products still need the AI layer wired in well — where I add value is making the intelligence usable, not the 3D.",
       site:"https://immerseenterprise.com/artificial-intelligence/perth/", linkedin:"Immerse Enterprise" },
