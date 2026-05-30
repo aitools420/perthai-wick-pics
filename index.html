@@ -11,31 +11,31 @@
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;}
   #spacer{height:640vh;width:1px;pointer-events:none;}
-  /* photoreal room backdrop (CSS cover = perfect on every aspect ratio) */
-  #room-bg{position:fixed;inset:0;z-index:0;background:#04060a center/cover no-repeat url("assets/room.jpg");
-    will-change:transform,filter;transform:scale(1.02);}
-  #scene{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;} /* transparent WebGL actors */
-  #redwash{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;
-    background:radial-gradient(120% 100% at 50% 45%,rgba(255,40,52,.55),rgba(150,0,10,.9));
+  /* WebGL canvas holds BOTH the photo background and the 3D actors, so bloom
+     composites correctly over the room (the prior CSS-backdrop approach failed:
+     the opaque bloom output painted black over it). */
+  #scene{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;}
+  #redwash{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;
+    background:radial-gradient(120% 100% at 50% 45%,rgba(255,40,52,.5),rgba(150,0,10,.92));
     mix-blend-mode:multiply;}
-  .vignette{position:fixed;inset:0;z-index:3;pointer-events:none;
-    background:radial-gradient(120% 90% at 50% 42%,transparent 52%,rgba(0,0,0,.72) 100%);}
-  #ui{position:fixed;inset:0;z-index:4;pointer-events:none;}
+  .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(125% 95% at 50% 44%,transparent 50%,rgba(0,0,0,.74) 100%);}
+  #ui{position:fixed;inset:0;z-index:3;pointer-events:none;}
   .layer{position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;padding:7vw;
     will-change:opacity,transform;opacity:0;}
   #layer-brand h1{font-weight:800;letter-spacing:.04em;line-height:.95;
-    font-size:clamp(2.2rem,8vw,6rem);text-shadow:0 0 60px rgba(0,0,0,.9),0 0 90px rgba(57,201,255,.5);}
+    font-size:clamp(2.2rem,8vw,6rem);text-shadow:0 0 50px rgba(0,0,0,.95),0 0 90px rgba(57,201,255,.5);}
   #layer-brand h1 .lim{color:var(--accent);}
   #layer-brand p{margin-top:1.2rem;font-size:clamp(.7rem,2.2vw,1rem);
-    letter-spacing:.42em;text-transform:uppercase;color:#cfeaf6;font-weight:500;text-shadow:0 2px 20px rgba(0,0,0,.9);}
-  .panel h2{font-weight:700;font-size:clamp(1.3rem,4.6vw,2.6rem);margin-bottom:1.4rem;text-shadow:0 2px 30px rgba(0,0,0,.95);}
+    letter-spacing:.42em;text-transform:uppercase;color:#dff1f8;font-weight:500;text-shadow:0 2px 18px rgba(0,0,0,.95);}
+  .panel h2{font-weight:700;font-size:clamp(1.3rem,4.6vw,2.6rem);margin-bottom:1.4rem;text-shadow:0 2px 26px rgba(0,0,0,.97);}
   .panel ul{list-style:none;display:flex;flex-direction:column;gap:.7rem;
-    font-size:clamp(.95rem,3vw,1.5rem);font-weight:300;max-width:30ch;text-shadow:0 2px 18px rgba(0,0,0,.95);}
-  #layer-benefits h2{color:var(--accent);text-shadow:0 0 34px rgba(0,0,0,.9),0 0 50px rgba(57,201,255,.6);}
-  #layer-risks h2{color:#ff5563;text-shadow:0 0 34px rgba(0,0,0,.9),0 0 50px rgba(255,36,54,.6);}
-  #blackout{position:fixed;inset:0;background:#000;opacity:0;z-index:5;pointer-events:none;}
-  #cta{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;
+    font-size:clamp(.95rem,3vw,1.5rem);font-weight:300;max-width:30ch;text-shadow:0 2px 16px rgba(0,0,0,.97);}
+  #layer-benefits h2{color:var(--accent);text-shadow:0 0 30px rgba(0,0,0,.95),0 0 50px rgba(57,201,255,.6);}
+  #layer-risks h2{color:#ff5563;text-shadow:0 0 30px rgba(0,0,0,.95),0 0 50px rgba(255,36,54,.6);}
+  #blackout{position:fixed;inset:0;background:#000;opacity:0;z-index:4;pointer-events:none;}
+  #cta{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:1.5rem;opacity:0;pointer-events:none;}
   #cta .kick{font-size:clamp(.95rem,3vw,1.35rem);color:#9fd9ef;letter-spacing:.03em;font-weight:300;max-width:24ch;}
   #cta button{font:inherit;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
@@ -47,8 +47,8 @@
   #cta .other{color:#8fc6dd;text-decoration:none;font-size:.8rem;letter-spacing:.28em;
     text-transform:uppercase;border-bottom:1px solid rgba(57,201,255,.35);padding-bottom:.25rem;transition:.2s;}
   #cta .other:hover{color:#fff;border-color:#fff;}
-  #hint{position:fixed;left:0;right:0;bottom:5vh;z-index:4;text-align:center;
-    font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#bfe2f0;text-shadow:0 2px 14px #000;
+  #hint{position:fixed;left:0;right:0;bottom:5vh;z-index:3;text-align:center;
+    font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#cfe9f4;text-shadow:0 2px 14px #000;
     animation:bob 2s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
   #boot{position:fixed;inset:0;z-index:9;background:#04060a;display:flex;
@@ -57,7 +57,6 @@
 </style>
 </head>
 <body>
-  <div id="room-bg"></div>
   <div id="scene"></div>
   <div id="redwash"></div>
   <div class="vignette"></div>
@@ -114,17 +113,18 @@
   import { OutputPass }        from 'three/addons/postprocessing/OutputPass.js';
 
   /* =====================================================================
-     CONFIG — colours, copy, bloom, camera, and the scroll TIMELINE
-     (each beat as a 0..1 scroll fraction). Edit here. (Replaceable.)
-     The room is now a photo (assets/room.jpg, swap the file to restyle);
-     only the actors — hologram, robots — are 3D, composited over it.
+     CONFIG — colours, copy, bloom, and the scroll TIMELINE (each beat a
+     0..1 scroll fraction). The room is a photo (assets/room.jpg — swap the
+     file to restyle) used as the WebGL scene background AND the reflection
+     env map; only the hologram + robots are 3D actors over it. (Replaceable.)
      ===================================================================== */
   const CONFIG = {
-    color:{ accent:0x39c9ff, accentSoft:0x1c89b8, danger:0xff2436, chrome:0xaeb8c2 },
-    bloom:{ strength:0.62, radius:0.6, threshold:0.62 },
+    room:{ src:'assets/room.jpg', imgAspect:1216/768 },
+    color:{ accent:0x39c9ff, accentSoft:0x1c89b8, danger:0xff2436, chrome:0xb2bcc6 },
+    bloom:{ strength:0.55, radius:0.6, threshold:0.7 },
     robots:{ count:3 },
     t:{
-      brandOut:[0.05,0.14], roomZoom:[0.0,0.5],
+      brandOut:[0.05,0.14], roomZoom:[0.0,0.62],
       holoRise:[0.10,0.34], benefitsIn:[0.14,0.22], benefitsOut:[0.34,0.42],
       holoFlicker:[0.37,0.48],
       robotsIn:[0.42,0.64], risksIn:[0.48,0.57], risksOut:[0.66,0.74],
@@ -140,34 +140,48 @@
   const C=CONFIG.color;
 
   const host=document.getElementById('scene');
-  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
   renderer.setSize(innerWidth,innerHeight);
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.setClearAlpha(0);                       // transparent → CSS room shows through
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.1;
+  renderer.toneMappingExposure=1.05;
   host.appendChild(renderer.domElement);
 
-  const scene=new THREE.Scene();   // no background — the photo is behind the canvas
+  const scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x04060a);   // fallback until the photo loads
 
   const camera=new THREE.PerspectiveCamera(54,innerWidth/innerHeight,0.1,200);
   camera.position.set(0,1.6,7.2);
   const lookAt=new THREE.Vector3(0,1.4,0);
 
-  // Environment map: start with neutral studio reflections, then upgrade to the
-  // actual room photo so the chrome robots reflect the room's tones. The photo
-  // isn't a true 360 pano, but PMREM blurs reflections enough that it reads right.
+  // ---- Room photo: scene background (cover-fit, no distortion) + env map ----
+  let roomTex=null, baseRepeat={x:1,y:1};
+  function coverFit(zoom=0){
+    if(!roomTex) return;
+    const sa=innerWidth/innerHeight, ia=CONFIG.room.imgAspect;
+    let rx,ry;
+    if(sa>ia){ rx=1; ry=ia/sa; } else { rx=sa/ia; ry=1; }   // cover, crop overflow
+    baseRepeat={x:rx,y:ry};
+    const z=1+zoom*0.18;                                     // zoom INTO the room
+    const zx=rx/z, zy=ry/z;
+    roomTex.repeat.set(zx,zy);
+    roomTex.offset.set((1-zx)/2,(1-zy)/2);
+  }
   const pmrem=new THREE.PMREMGenerator(renderer);
-  scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
-  new THREE.TextureLoader().load('assets/room.jpg', (tex)=>{
-    tex.mapping=THREE.EquirectangularReflectionMapping;
-    try { scene.environment=pmrem.fromEquirectangular(tex).texture; } catch(e){}
-    tex.dispose();
+  scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;  // neutral until photo
+  new THREE.TextureLoader().load(CONFIG.room.src,(tex)=>{
+    tex.colorSpace=THREE.SRGBColorSpace;
+    roomTex=tex; scene.background=tex; coverFit(0);
+    // also drive reflections off the room so chrome robots pick up its tones
+    try{
+      const eq=tex.clone(); eq.mapping=THREE.EquirectangularReflectionMapping;
+      scene.environment=pmrem.fromEquirectangular(eq).texture; eq.dispose();
+    }catch(e){}
   });
 
   /* ---------------- FACTORIES (each piece swappable) ---------------- */
 
-  // HOLOGRAM — layered wire-construct rising from the photo's central pod.
+  // HOLOGRAM — wire-construct rising from the photo's central pod.
   let holo, holoMat=[];
   function buildHologram(){
     const g=new THREE.Group();
@@ -184,12 +198,12 @@
     g.position.set(0,0.6,0);g.scale.setScalar(0.001);holo=g;return g;
   }
 
-  // ROBOTS — chrome Terminator-style endoskeletons that reflect the room env map.
+  // ROBOTS — chrome endoskeletons that reflect the room env map.
   let robots=[];
   function buildRobots(){
     const grp=new THREE.Group();
-    const chrome=new THREE.MeshStandardMaterial({color:C.chrome,metalness:1.0,roughness:0.24,envMapIntensity:1.8});
-    const dark=new THREE.MeshStandardMaterial({color:0x5d6772,metalness:1.0,roughness:0.42,envMapIntensity:1.4});
+    const chrome=new THREE.MeshStandardMaterial({color:C.chrome,metalness:1.0,roughness:0.22,envMapIntensity:1.9});
+    const dark=new THREE.MeshStandardMaterial({color:0x5d6772,metalness:1.0,roughness:0.42,envMapIntensity:1.5});
     const eyeMat=new THREE.MeshBasicMaterial({color:0xff1518,toneMapped:false});
     const bone=(w,h,d,m)=>new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m||chrome);
     const tube=(r,h)=>new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12),chrome);
@@ -236,20 +250,20 @@
 
   let keyLight,fillL,fillR,rim;
   function buildLights(){
-    scene.add(new THREE.AmbientLight(0x35506a,0.7));
-    keyLight=new THREE.SpotLight(C.accent,50,34,Math.PI/4.2,0.55,1.1);
+    scene.add(new THREE.AmbientLight(0x35506a,0.8));
+    keyLight=new THREE.SpotLight(C.accent,48,34,Math.PI/4.2,0.55,1.1);
     keyLight.position.set(0,7,4);keyLight.target.position.set(0,1.4,0);scene.add(keyLight,keyLight.target);
-    fillL=new THREE.PointLight(C.accentSoft,22,30);fillL.position.set(-5.5,3,4);scene.add(fillL);
-    fillR=new THREE.PointLight(C.accentSoft,22,30);fillR.position.set(5.5,3,-3.5);scene.add(fillR);
-    rim=new THREE.PointLight(0xbfe9ff,18,26);rim.position.set(0,2.2,-6);scene.add(rim);
+    fillL=new THREE.PointLight(C.accentSoft,20,30);fillL.position.set(-5.5,3,4);scene.add(fillL);
+    fillR=new THREE.PointLight(C.accentSoft,20,30);fillR.position.set(5.5,3,-3.5);scene.add(fillR);
+    rim=new THREE.PointLight(0xbfe9ff,16,26);rim.position.set(0,2.2,-6);scene.add(rim);
   }
 
   let dust;
   function buildDust(){
-    const N=260,pos=new Float32Array(N*3);
-    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-0.5)*26;pos[i*3+1]=Math.random()*7;pos[i*3+2]=(Math.random()-0.5)*24-3;}
+    const N=220,pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-0.5)*24;pos[i*3+1]=Math.random()*7;pos[i*3+2]=(Math.random()-0.5)*22-3;}
     const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-    dust=new THREE.Points(geo,new THREE.PointsMaterial({color:0x9fe3ff,size:0.03,transparent:true,opacity:0.4,depthWrite:false,blending:THREE.AdditiveBlending}));
+    dust=new THREE.Points(geo,new THREE.PointsMaterial({color:0x9fe3ff,size:0.028,transparent:true,opacity:0.38,depthWrite:false,blending:THREE.AdditiveBlending}));
     scene.add(dust);
   }
 
@@ -270,7 +284,7 @@
 
   const el=id=>document.getElementById(id);
   const L={brand:el('layer-brand'),benefits:el('layer-benefits'),risks:el('layer-risks'),
-    black:el('blackout'),cta:el('cta'),hint:el('hint'),roomBg:el('room-bg'),red:el('redwash')};
+    black:el('blackout'),cta:el('cta'),hint:el('hint'),red:el('redwash')};
   function show(node,o,y=0){node.style.opacity=o.toFixed(3);if(y)node.style.transform=`translateY(${y}px)`;}
 
   const T=CONFIG.t;
@@ -278,9 +292,8 @@
     show(L.brand,1-seg(p,...T.brandOut),-seg(p,...T.brandOut)*40);
     show(L.hint,1-seg(p,0.02,0.08));
 
-    // move INTO the room — subtle CSS zoom on the photo backdrop
-    const zoom=easeInOut(seg(p,...T.roomZoom));
-    L.roomBg.style.transform=`scale(${(1.02+zoom*0.16).toFixed(4)})`;
+    // move INTO the room — zoom the background texture (no distortion)
+    coverFit(easeInOut(seg(p,...T.roomZoom)));
 
     // hologram rises from the pod (scroll-scrubbed = pulled from the void)
     const rise=easeOut(seg(p,...T.holoRise));
@@ -303,11 +316,11 @@
     });
     show(L.risks,seg(p,...T.risksIn)*(1-seg(p,...T.risksOut)),(1-seg(p,...T.risksIn))*30);
 
-    // the room bleeds red (multiply overlay tints the actual photo + actors)
+    // the room bleeds red (CSS multiply overlay tints the whole canvas)
     const red=easeInOut(seg(p,...T.redShift));
     L.red.style.opacity=red.toFixed(3);
     keyLight.color.setHex(C.accent).lerp(new THREE.Color(C.danger),red);
-    keyLight.intensity=lerp(50,68,red);
+    keyLight.intensity=lerp(48,66,red);
 
     // fade to black, then CTA emerges
     L.black.style.opacity=easeInOut(seg(p,...T.blackout)).toFixed(3);
@@ -325,8 +338,8 @@
     current+=(target-current)*0.085;
     beats(current,time);
     if(dust){dust.rotation.y=time*0.01;}
-    camera.position.x=Math.sin(time*0.22)*0.12+mouse.x*0.5;
-    camera.position.y=1.6+Math.cos(time*0.18)*0.06-mouse.y*0.3;
+    camera.position.x=Math.sin(time*0.22)*0.1+mouse.x*0.45;
+    camera.position.y=1.6+Math.cos(time*0.18)*0.05-mouse.y*0.28;
     camera.lookAt(lookAt);
     composer.render();
     requestAnimationFrame(tick);
@@ -335,7 +348,8 @@
 
   addEventListener('resize',()=>{
     camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);bloom.setSize(innerWidth,innerHeight);onScroll();
+    renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);bloom.setSize(innerWidth,innerHeight);
+    coverFit(easeInOut(seg(current,...CONFIG.t.roomZoom)));onScroll();
   });
 
   el('cta-btn').addEventListener('click',()=>{location.href='mailto:hello@perthai.wick.pics?subject=AI%20integration';});
