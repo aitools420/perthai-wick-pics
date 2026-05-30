@@ -11,25 +11,33 @@
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;}
   #spacer{height:640vh;width:1px;pointer-events:none;}
-  #scene{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;}
-  #ui{position:fixed;inset:0;z-index:2;pointer-events:none;}
+  /* photoreal room backdrop (CSS cover = perfect on every aspect ratio) */
+  #room-bg{position:fixed;inset:0;z-index:0;background:#04060a center/cover no-repeat url("assets/room.jpg");
+    will-change:transform,filter;transform:scale(1.02);}
+  #scene{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;} /* transparent WebGL actors */
+  #redwash{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;
+    background:radial-gradient(120% 100% at 50% 45%,rgba(255,40,52,.55),rgba(150,0,10,.9));
+    mix-blend-mode:multiply;}
+  .vignette{position:fixed;inset:0;z-index:3;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 42%,transparent 52%,rgba(0,0,0,.72) 100%);}
+  #ui{position:fixed;inset:0;z-index:4;pointer-events:none;}
   .layer{position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;padding:7vw;
     will-change:opacity,transform;opacity:0;}
   #layer-brand h1{font-weight:800;letter-spacing:.04em;line-height:.95;
-    font-size:clamp(2.2rem,8vw,6rem);text-shadow:0 0 60px rgba(57,201,255,.45);}
+    font-size:clamp(2.2rem,8vw,6rem);text-shadow:0 0 60px rgba(0,0,0,.9),0 0 90px rgba(57,201,255,.5);}
   #layer-brand h1 .lim{color:var(--accent);}
   #layer-brand p{margin-top:1.2rem;font-size:clamp(.7rem,2.2vw,1rem);
-    letter-spacing:.42em;text-transform:uppercase;color:#8fc6dd;font-weight:500;}
-  .panel h2{font-weight:700;font-size:clamp(1.3rem,4.6vw,2.6rem);margin-bottom:1.4rem;}
+    letter-spacing:.42em;text-transform:uppercase;color:#cfeaf6;font-weight:500;text-shadow:0 2px 20px rgba(0,0,0,.9);}
+  .panel h2{font-weight:700;font-size:clamp(1.3rem,4.6vw,2.6rem);margin-bottom:1.4rem;text-shadow:0 2px 30px rgba(0,0,0,.95);}
   .panel ul{list-style:none;display:flex;flex-direction:column;gap:.7rem;
-    font-size:clamp(.95rem,3vw,1.5rem);font-weight:300;max-width:30ch;}
-  #layer-benefits h2{color:var(--accent);text-shadow:0 0 34px rgba(57,201,255,.6);}
-  #layer-risks h2{color:#ff2436;text-shadow:0 0 34px rgba(255,36,54,.6);}
-  #blackout{position:fixed;inset:0;background:#000;opacity:0;z-index:3;pointer-events:none;}
-  #cta{position:fixed;inset:0;z-index:4;display:flex;flex-direction:column;
+    font-size:clamp(.95rem,3vw,1.5rem);font-weight:300;max-width:30ch;text-shadow:0 2px 18px rgba(0,0,0,.95);}
+  #layer-benefits h2{color:var(--accent);text-shadow:0 0 34px rgba(0,0,0,.9),0 0 50px rgba(57,201,255,.6);}
+  #layer-risks h2{color:#ff5563;text-shadow:0 0 34px rgba(0,0,0,.9),0 0 50px rgba(255,36,54,.6);}
+  #blackout{position:fixed;inset:0;background:#000;opacity:0;z-index:5;pointer-events:none;}
+  #cta{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:1.5rem;opacity:0;pointer-events:none;}
-  #cta .kick{font-size:clamp(.95rem,3vw,1.35rem);color:#9fd9ef;letter-spacing:.03em;font-weight:300;max-width:24ch;text-align:center;}
+  #cta .kick{font-size:clamp(.95rem,3vw,1.35rem);color:#9fd9ef;letter-spacing:.03em;font-weight:300;max-width:24ch;}
   #cta button{font:inherit;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
     font-size:clamp(.85rem,2.6vw,1.05rem);color:#04060a;background:var(--accent);
     border:0;border-radius:999px;padding:1.05rem 2.6rem;cursor:pointer;
@@ -39,20 +47,19 @@
   #cta .other{color:#8fc6dd;text-decoration:none;font-size:.8rem;letter-spacing:.28em;
     text-transform:uppercase;border-bottom:1px solid rgba(57,201,255,.35);padding-bottom:.25rem;transition:.2s;}
   #cta .other:hover{color:#fff;border-color:#fff;}
-  #hint{position:fixed;left:0;right:0;bottom:5vh;z-index:2;text-align:center;
-    font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#5e8aa3;
+  #hint{position:fixed;left:0;right:0;bottom:5vh;z-index:4;text-align:center;
+    font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#bfe2f0;text-shadow:0 2px 14px #000;
     animation:bob 2s ease-in-out infinite;}
-  @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(8px);opacity:1}}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
   #boot{position:fixed;inset:0;z-index:9;background:#04060a;display:flex;
     align-items:center;justify-content:center;color:#3f6275;letter-spacing:.4em;
     font-size:.7rem;text-transform:uppercase;transition:opacity .8s ease;}
-  /* soft, subtle vignette — no hard frame (was reading as a flat image) */
-  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
-    background:radial-gradient(120% 90% at 50% 42%,transparent 55%,rgba(0,0,0,.55) 100%);}
 </style>
 </head>
 <body>
+  <div id="room-bg"></div>
   <div id="scene"></div>
+  <div id="redwash"></div>
   <div class="vignette"></div>
 
   <div id="ui">
@@ -101,29 +108,27 @@
   <script type="module">
   import * as THREE from 'three';
   import { RoomEnvironment }   from 'three/addons/environments/RoomEnvironment.js';
-  import { Reflector }         from 'three/addons/objects/Reflector.js';
   import { EffectComposer }    from 'three/addons/postprocessing/EffectComposer.js';
   import { RenderPass }        from 'three/addons/postprocessing/RenderPass.js';
   import { UnrealBloomPass }   from 'three/addons/postprocessing/UnrealBloomPass.js';
   import { OutputPass }        from 'three/addons/postprocessing/OutputPass.js';
 
   /* =====================================================================
-     CONFIG — the dials. Colours, copy, bloom, camera, and the scroll
-     TIMELINE (each beat as a 0..1 scroll fraction). Edit here.
+     CONFIG — colours, copy, bloom, camera, and the scroll TIMELINE
+     (each beat as a 0..1 scroll fraction). Edit here. (Replaceable.)
+     The room is now a photo (assets/room.jpg, swap the file to restyle);
+     only the actors — hologram, robots — are 3D, composited over it.
      ===================================================================== */
   const CONFIG = {
-    color:{ accent:0x39c9ff, accentSoft:0x1c89b8, danger:0xff2436,
-            metal:0x20262e, metalDark:0x12161c, chrome:0xaab4bf, floor:0x0a0e13 },
-    bloom:{ strength:0.72, radius:0.6, threshold:0.62 },
-    camera:{ pos:[0,1.75,8.2], look:[0,1.6,-1], sway:0.14 },
-    racks:{ perSide:8, spacing:2.0, aisle:3.2 },
+    color:{ accent:0x39c9ff, accentSoft:0x1c89b8, danger:0xff2436, chrome:0xaeb8c2 },
+    bloom:{ strength:0.62, radius:0.6, threshold:0.62 },
     robots:{ count:3 },
     t:{
-      brandOut:[0.05,0.14], holoRise:[0.10,0.34],
-      benefitsIn:[0.14,0.22], benefitsOut:[0.34,0.42],
+      brandOut:[0.05,0.14], roomZoom:[0.0,0.5],
+      holoRise:[0.10,0.34], benefitsIn:[0.14,0.22], benefitsOut:[0.34,0.42],
       holoFlicker:[0.37,0.48],
       robotsIn:[0.42,0.64], risksIn:[0.48,0.57], risksOut:[0.66,0.74],
-      redShift:[0.42,0.72], blackout:[0.74,0.92], ctaIn:[0.90,1.0]
+      redShift:[0.44,0.72], blackout:[0.74,0.92], ctaIn:[0.90,1.0]
     }
   };
 
@@ -132,108 +137,37 @@
   const seg=(p,a,b)=>clamp((p-a)/(b-a));
   const easeOut=t=>1-Math.pow(1-t,3);
   const easeInOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-
   const C=CONFIG.color;
-  const COL={ accent:new THREE.Color(C.accent), accentSoft:new THREE.Color(C.accentSoft), danger:new THREE.Color(C.danger) };
 
   const host=document.getElementById('scene');
-  const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
   renderer.setSize(innerWidth,innerHeight);
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setClearAlpha(0);                       // transparent → CSS room shows through
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.15;
+  renderer.toneMappingExposure=1.1;
   host.appendChild(renderer.domElement);
 
-  const scene=new THREE.Scene();
-  scene.fog=new THREE.FogExp2(0x05080c,0.038);
+  const scene=new THREE.Scene();   // no background — the photo is behind the canvas
 
   const camera=new THREE.PerspectiveCamera(54,innerWidth/innerHeight,0.1,200);
-  camera.position.set(...CONFIG.camera.pos);
+  camera.position.set(0,1.6,7.2);
+  const lookAt=new THREE.Vector3(0,1.4,0);
 
+  // Environment map: start with neutral studio reflections, then upgrade to the
+  // actual room photo so the chrome robots reflect the room's tones. The photo
+  // isn't a true 360 pano, but PMREM blurs reflections enough that it reads right.
   const pmrem=new THREE.PMREMGenerator(renderer);
   scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
-
-  /* tinted emissive registry (room reds out on the risk beat) */
-  const tintables=[];
-  function emissive(hex,intensity=1){
-    const m=new THREE.MeshBasicMaterial({color:new THREE.Color(hex).multiplyScalar(intensity),toneMapped:false,transparent:true});
-    tintables.push({mat:m,base:m.color.clone()}); return m;
-  }
-  /* shared metal materials — strong env reflection so they READ as metal */
-  const matMetal=new THREE.MeshStandardMaterial({color:C.metal,metalness:1.0,roughness:0.34,envMapIntensity:1.5});
-  const matMetalDark=new THREE.MeshStandardMaterial({color:C.metalDark,metalness:1.0,roughness:0.5,envMapIntensity:1.2});
-  const matTrim=new THREE.MeshStandardMaterial({color:0x3a4654,metalness:1.0,roughness:0.22,envMapIntensity:1.8});
+  new THREE.TextureLoader().load('assets/room.jpg', (tex)=>{
+    tex.mapping=THREE.EquirectangularReflectionMapping;
+    try { scene.environment=pmrem.fromEquirectangular(tex).texture; } catch(e){}
+    tex.dispose();
+  });
 
   /* ---------------- FACTORIES (each piece swappable) ---------------- */
 
-  function buildRoom(){
-    const g=new THREE.Group();
-    // reflective floor
-    const res=Math.min(1024,Math.floor(Math.min(innerWidth,innerHeight)*devicePixelRatio));
-    const floor=new Reflector(new THREE.PlaneGeometry(160,160),{clipBias:0.003,textureWidth:res,textureHeight:res,color:C.floor});
-    floor.rotation.x=-Math.PI/2;g.add(floor);
-    const grid=new THREE.GridHelper(140,90,C.accent,0x0a2330);
-    grid.material.transparent=true;grid.material.opacity=0.13;grid.material.depthWrite=false;grid.position.y=0.02;g.add(grid);
-    // metal side walls (so there's obvious metal in frame)
-    for(const sx of[-1,1]){
-      const wall=new THREE.Mesh(new THREE.PlaneGeometry(60,9),matMetalDark);
-      wall.position.set(sx*7.4,4,-12);wall.rotation.y=-sx*Math.PI/2;g.add(wall);
-    }
-    // ceiling + glowing strips
-    const ceil=new THREE.Mesh(new THREE.PlaneGeometry(160,160),matMetalDark);
-    ceil.rotation.x=Math.PI/2;ceil.position.y=8.2;g.add(ceil);
-    for(let i=-3;i<=3;i++){
-      const strip=new THREE.Mesh(new THREE.PlaneGeometry(0.3,48),emissive(C.accent,1.5));
-      strip.rotation.x=Math.PI/2;strip.position.set(i*2.4,8.14,0);g.add(strip);
-    }
-    // SERVER RACKS — bigger, closer, detailed, prominent
-    const R=CONFIG.racks;
-    for(const side of[-1,1]){
-      for(let i=0;i<R.perSide;i++){
-        const h=3.2+((i*37)%7)*0.16;
-        const z=-(i-1)*R.spacing-0.5;
-        const rack=new THREE.Group();
-        const body=new THREE.Mesh(new THREE.BoxGeometry(1.35,h,1.9),matMetal);body.position.y=h/2;rack.add(body);
-        // face frame / trim
-        const face=new THREE.Mesh(new THREE.BoxGeometry(1.15,h-0.2,0.06),matMetalDark);
-        face.position.set(0,h/2,(side<0?0.96:-0.96));rack.add(face);
-        // horizontal blade seams + LED arrays
-        const blades=Math.floor(h/0.34);
-        for(let b=0;b<blades;b++){
-          const seam=new THREE.Mesh(new THREE.BoxGeometry(1.12,0.02,0.02),matTrim);
-          seam.position.set(0,0.3+b*0.34,(side<0?1.0:-1.0));rack.add(seam);
-          if(b%2===0){
-            const led=new THREE.Mesh(new THREE.PlaneGeometry(0.06,0.06),emissive((b+i)%5===0?C.accent:0x1f9bc4,1.5+((b*i)%3)*0.4));
-            led.position.set(-0.42,0.3+b*0.34,(side<0?1.03:-1.03));
-            led.rotation.y=side<0?0:Math.PI;led.userData.blink=Math.random()*6.28;rack.add(led);
-          }
-        }
-        rack.position.set(side*R.aisle,0,z);
-        rack.rotation.y=side<0?0.04:-0.04;
-        g.add(rack);
-      }
-    }
-    return g;
-  }
-
-  let podBeam;
-  function buildPod(){
-    const g=new THREE.Group();
-    const base=new THREE.Mesh(new THREE.CylinderGeometry(1.4,1.7,0.4,56),
-      new THREE.MeshStandardMaterial({color:0x141b22,metalness:1.0,roughness:0.18,envMapIntensity:1.7}));
-    base.position.y=0.2;g.add(base);
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(1.4,0.055,18,72),emissive(C.accent,2.2));
-    ring.rotation.x=Math.PI/2;ring.position.y=0.42;g.add(ring);
-    const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.15,0.03,16,64),emissive(C.accent,1.6));
-    ring2.rotation.x=Math.PI/2;ring2.position.y=0.45;g.add(ring2);
-    podBeam=new THREE.Mesh(new THREE.CylinderGeometry(0.95,1.25,4.6,40,1,true),
-      new THREE.MeshBasicMaterial({color:C.accent,transparent:true,opacity:0,side:THREE.DoubleSide,
-        blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));
-    podBeam.position.y=2.6;g.add(podBeam);
-    return g;
-  }
-
-  // HOLOGRAM (swappable)
+  // HOLOGRAM — layered wire-construct rising from the photo's central pod.
   let holo, holoMat=[];
   function buildHologram(){
     const g=new THREE.Group();
@@ -247,24 +181,24 @@
     const core=new THREE.Mesh(new THREE.IcosahedronGeometry(0.45,1),
       new THREE.MeshBasicMaterial({color:0xbff2ff,transparent:true,opacity:0.85,toneMapped:false}));
     holoMat.push(core.material);g.add(core);
-    g.position.y=0.6;g.scale.setScalar(0.001);holo=g;return g;
+    g.position.set(0,0.6,0);g.scale.setScalar(0.001);holo=g;return g;
   }
 
-  // ROBOTS (swappable) — chrome Terminator-style endoskeletons
+  // ROBOTS — chrome Terminator-style endoskeletons that reflect the room env map.
   let robots=[];
   function buildRobots(){
     const grp=new THREE.Group();
-    const chrome=new THREE.MeshStandardMaterial({color:C.chrome,metalness:1.0,roughness:0.26,envMapIntensity:1.7});
+    const chrome=new THREE.MeshStandardMaterial({color:C.chrome,metalness:1.0,roughness:0.24,envMapIntensity:1.8});
     const dark=new THREE.MeshStandardMaterial({color:0x5d6772,metalness:1.0,roughness:0.42,envMapIntensity:1.4});
     const eyeMat=new THREE.MeshBasicMaterial({color:0xff1518,toneMapped:false});
     const bone=(w,h,d,m)=>new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m||chrome);
-    const tube=(r,h,m)=>new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12),m||chrome);
+    const tube=(r,h)=>new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12),chrome);
     const joint=r=>new THREE.Mesh(new THREE.SphereGeometry(r,16,16),chrome);
     function endo(){
       const r=new THREE.Group();
       const pelvis=bone(0.44,0.24,0.32,dark);pelvis.position.y=1.0;r.add(pelvis);
       const spine=tube(0.07,0.72);spine.position.y=1.45;r.add(spine);
-      for(let i=0;i<4;i++){ // ribcage arcs
+      for(let i=0;i<4;i++){
         const rib=new THREE.Mesh(new THREE.TorusGeometry(0.24-i*0.012,0.026,8,18,Math.PI*1.15),chrome);
         rib.position.set(0,1.24+i*0.135,0);rib.rotation.x=Math.PI/2;rib.rotation.z=Math.PI*0.43;r.add(rib);
       }
@@ -277,13 +211,11 @@
       for(const sx of[-1,1]){
         const eye=new THREE.Mesh(new THREE.SphereGeometry(0.038,12,12),eyeMat);
         eye.position.set(sx*0.065,2.15,0.14);r.add(eye);
-        // arms
         const sh=joint(0.1);sh.position.set(sx*0.28,1.8,0);r.add(sh);
         const upper=tube(0.055,0.44);upper.position.set(sx*0.32,1.56,0);upper.rotation.z=sx*0.2;r.add(upper);
         const elbow=joint(0.07);elbow.position.set(sx*0.4,1.33,0);r.add(elbow);
         const fore=tube(0.046,0.42);fore.position.set(sx*0.43,1.1,0.03);fore.rotation.z=sx*0.12;r.add(fore);
         const hand=bone(0.11,0.16,0.07,dark);hand.position.set(sx*0.45,0.86,0.03);r.add(hand);
-        // legs
         const hip=joint(0.1);hip.position.set(sx*0.15,0.95,0);r.add(hip);
         const thigh=tube(0.072,0.52);thigh.position.set(sx*0.16,0.64,0);r.add(thigh);
         const knee=joint(0.08);knee.position.set(sx*0.16,0.38,0);r.add(knee);
@@ -295,8 +227,8 @@
     const n=CONFIG.robots.count,spread=2.9;
     for(let i=0;i<n;i++){
       const e=endo();
-      e.position.set((i-(n-1)/2)*spread,0,-4.6-(i%2)*1.3);
-      e.rotation.y=((i-(n-1)/2))*-0.16;e.scale.setScalar(1.08);e.userData.baseY=0;
+      e.position.set((i-(n-1)/2)*spread,0,-4.4-(i%2)*1.3);
+      e.rotation.y=((i-(n-1)/2))*-0.16;e.scale.setScalar(1.06);e.userData.baseY=0;
       grp.add(e);robots.push(e);
     }
     return grp;
@@ -304,26 +236,23 @@
 
   let keyLight,fillL,fillR,rim;
   function buildLights(){
-    scene.add(new THREE.AmbientLight(0x2a3f52,0.55));
-    keyLight=new THREE.SpotLight(C.accent,55,34,Math.PI/4.2,0.55,1.1);
-    keyLight.position.set(0,7.4,3);keyLight.target.position.set(0,1.4,0);scene.add(keyLight,keyLight.target);
-    fillL=new THREE.PointLight(C.accentSoft,26,30);fillL.position.set(-5.5,3,3.5);scene.add(fillL);
-    fillR=new THREE.PointLight(C.accentSoft,26,30);fillR.position.set(5.5,3,-3.5);scene.add(fillR);
-    rim=new THREE.PointLight(0xbfe9ff,20,26);rim.position.set(0,2.2,-6);scene.add(rim); // back rim glints metal edges
+    scene.add(new THREE.AmbientLight(0x35506a,0.7));
+    keyLight=new THREE.SpotLight(C.accent,50,34,Math.PI/4.2,0.55,1.1);
+    keyLight.position.set(0,7,4);keyLight.target.position.set(0,1.4,0);scene.add(keyLight,keyLight.target);
+    fillL=new THREE.PointLight(C.accentSoft,22,30);fillL.position.set(-5.5,3,4);scene.add(fillL);
+    fillR=new THREE.PointLight(C.accentSoft,22,30);fillR.position.set(5.5,3,-3.5);scene.add(fillR);
+    rim=new THREE.PointLight(0xbfe9ff,18,26);rim.position.set(0,2.2,-6);scene.add(rim);
   }
 
-  // floating dust → volumetric depth (kills the "flat image" read)
   let dust;
   function buildDust(){
-    const N=420,pos=new Float32Array(N*3);
-    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-0.5)*32;pos[i*3+1]=Math.random()*8.2;pos[i*3+2]=(Math.random()-0.5)*32-4;}
+    const N=260,pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){pos[i*3]=(Math.random()-0.5)*26;pos[i*3+1]=Math.random()*7;pos[i*3+2]=(Math.random()-0.5)*24-3;}
     const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-    dust=new THREE.Points(geo,new THREE.PointsMaterial({color:0x7fdcff,size:0.035,transparent:true,opacity:0.45,depthWrite:false,blending:THREE.AdditiveBlending}));
+    dust=new THREE.Points(geo,new THREE.PointsMaterial({color:0x9fe3ff,size:0.03,transparent:true,opacity:0.4,depthWrite:false,blending:THREE.AdditiveBlending}));
     scene.add(dust);
   }
 
-  scene.add(buildRoom());
-  scene.add(buildPod());
   scene.add(buildHologram());
   scene.add(buildRobots());
   buildLights();
@@ -341,27 +270,30 @@
 
   const el=id=>document.getElementById(id);
   const L={brand:el('layer-brand'),benefits:el('layer-benefits'),risks:el('layer-risks'),
-    black:el('blackout'),cta:el('cta'),hint:el('hint')};
+    black:el('blackout'),cta:el('cta'),hint:el('hint'),roomBg:el('room-bg'),red:el('redwash')};
   function show(node,o,y=0){node.style.opacity=o.toFixed(3);if(y)node.style.transform=`translateY(${y}px)`;}
 
-  const T=CONFIG.t;const tmpA=new THREE.Color(),tmpB=new THREE.Color();
+  const T=CONFIG.t;
   function beats(p,time){
     show(L.brand,1-seg(p,...T.brandOut),-seg(p,...T.brandOut)*40);
     show(L.hint,1-seg(p,0.02,0.08));
 
-    // hologram rises (scroll-scrubbed = pulled from the void)
+    // move INTO the room — subtle CSS zoom on the photo backdrop
+    const zoom=easeInOut(seg(p,...T.roomZoom));
+    L.roomBg.style.transform=`scale(${(1.02+zoom*0.16).toFixed(4)})`;
+
+    // hologram rises from the pod (scroll-scrubbed = pulled from the void)
     const rise=easeOut(seg(p,...T.holoRise));
-    holo.position.y=lerp(0.6,2.6,rise);
+    holo.position.y=lerp(0.6,2.5,rise);
     const flick=seg(p,...T.holoFlicker);
-    let holoVis=rise*(1-flick);
-    if(flick>0&&flick<1)holoVis*=(Math.sin(time*45)>-.2?1:0.15);
+    let vis=rise*(1-flick);
+    if(flick>0&&flick<1)vis*=(Math.sin(time*45)>-.2?1:0.15);
     holo.scale.setScalar(lerp(0.001,1,rise)*(flick<1?1:0));
-    holoMat.forEach((m,i)=>m.opacity=holoVis*(i===holoMat.length-1?0.9:i?.4:.9));
-    podBeam.material.opacity=Math.max(0,(rise-flick))*0.22;
+    holoMat.forEach((m,i)=>m.opacity=vis*(i===holoMat.length-1?0.9:i?.4:.9));
     holo.rotation.y=time*0.4;if(holo.children[1])holo.children[1].rotation.y=-time*0.25;
     show(L.benefits,Math.min(seg(p,...T.benefitsIn),1)*(1-seg(p,...T.benefitsOut)),(1-seg(p,...T.benefitsIn))*30);
 
-    // robots rise up out of the floor as the hologram dies
+    // robots rise into the room as the hologram dies
     const rin=seg(p,...T.robotsIn);
     robots.forEach((r,i)=>{
       const k=easeOut(clamp(rin*1.25-i*0.12));
@@ -371,13 +303,11 @@
     });
     show(L.risks,seg(p,...T.risksIn)*(1-seg(p,...T.risksOut)),(1-seg(p,...T.risksIn))*30);
 
-    // the room bleeds red
+    // the room bleeds red (multiply overlay tints the actual photo + actors)
     const red=easeInOut(seg(p,...T.redShift));
-    keyLight.color.copy(tmpA.copy(COL.accent).lerp(COL.danger,red));
-    fillL.color.copy(tmpB.copy(COL.accentSoft).lerp(COL.danger,red));fillR.color.copy(tmpB);
-    keyLight.intensity=lerp(55,72,red);
-    tintables.forEach(t=>t.mat.color.copy(t.base).lerp(COL.danger,red*0.85));
-    scene.traverse(o=>{if(o.userData&&o.userData.blink!==undefined)o.material.opacity=0.5+0.5*Math.sin(time*4+o.userData.blink);});
+    L.red.style.opacity=red.toFixed(3);
+    keyLight.color.setHex(C.accent).lerp(new THREE.Color(C.danger),red);
+    keyLight.intensity=lerp(50,68,red);
 
     // fade to black, then CTA emerges
     L.black.style.opacity=easeInOut(seg(p,...T.blackout)).toFixed(3);
@@ -387,8 +317,6 @@
   }
 
   const clock=new THREE.Clock();
-  const baseCam=new THREE.Vector3(...CONFIG.camera.pos);
-  const look=new THREE.Vector3(...CONFIG.camera.look);
   let mouse={x:0,y:0};
   addEventListener('pointermove',e=>{mouse.x=(e.clientX/innerWidth-0.5);mouse.y=(e.clientY/innerHeight-0.5);},{passive:true});
 
@@ -396,13 +324,10 @@
     const time=clock.getElapsedTime();
     current+=(target-current)*0.085;
     beats(current,time);
-    if(dust){dust.rotation.y=time*0.012;dust.position.y=Math.sin(time*0.2)*0.2;}
-    // gentle parallax + a slight push toward the pod as the hologram rises (still "fixed" feel)
-    const s=CONFIG.camera.sway, push=seg(current,0.08,0.34)*0.8;
-    camera.position.x=baseCam.x+Math.sin(time*0.22)*s+mouse.x*0.6;
-    camera.position.y=baseCam.y+Math.cos(time*0.18)*s*0.5-mouse.y*0.35;
-    camera.position.z=baseCam.z-push;
-    camera.lookAt(look);
+    if(dust){dust.rotation.y=time*0.01;}
+    camera.position.x=Math.sin(time*0.22)*0.12+mouse.x*0.5;
+    camera.position.y=1.6+Math.cos(time*0.18)*0.06-mouse.y*0.3;
+    camera.lookAt(lookAt);
     composer.render();
     requestAnimationFrame(tick);
   }
@@ -413,7 +338,7 @@
     renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);bloom.setSize(innerWidth,innerHeight);onScroll();
   });
 
-  el('cta-btn').addEventListener('click',()=>{location.href='mailto:hello@perthai.wick.pics?subject=AI%20integration%20—%20let%27s%20talk';});
+  el('cta-btn').addEventListener('click',()=>{location.href='mailto:hello@perthai.wick.pics?subject=AI%20integration';});
   requestAnimationFrame(()=>{const b=el('boot');b.style.opacity='0';setTimeout(()=>b.remove(),900);});
   </script>
 </body>
